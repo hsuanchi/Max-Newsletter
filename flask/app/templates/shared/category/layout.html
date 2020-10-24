@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="{{ _('zh-TW')}}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>{{ _('Max行銷誌')}}</title>
+    <meta name="description" content="{{ _('電子報訂閱，每週四，掌握行銷大小事')}}">
+    <meta name="keywords"
+        content="Google Product updates,SEO Announce,FB Product updates,E-commerce platform,Google Tag Manager">
+    <meta property="og:title" content="{{ _('Max行銷誌')}}" />
+    <meta property="og:image"
+        content="{{ url_for('static', filename='img/max.png', _external=True, _scheme='https') }}" />
+    <meta property="og:description" content="{{ _('電子報訂閱，每週四，掌握行銷大小事')}}" />
+    <meta property="og:locale" content="{{ _('zh_TW')}}" />
+
+    <link rel="canonical" href="https://article.maxlist.xyz/" />
+    <link rel="alternate" hreflang="zh-TW" href="https://article.maxlist.xyz/zh/" />
+    <link rel="alternate" hreflang="en-US" href="https://article.maxlist.xyz/en/" />
+    <link rel="alternate" hreflang="x-default" href="https://article.maxlist.xyz/en/" />
+
+    <!-- fornt-awsome.css -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:black" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- bootstrap.css -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.5.0/css/bootstrap4-toggle.min.css"
+        rel="stylesheet">
+
+    <!-- Adding a favicon -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+
+    <!-- Adding Custom css -->
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/layout.css')}}">
+
+    <!-- Google Tag Manager -->
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-WJLH4B2');
+    </script>
+    <!-- End Google Tag Manager -->
+
+    {% block head %}
+
+    {% endblock %}
+</head>
+
+<body class='mode dark'>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WJLH4B2" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <!-- 使用sweetalert.js -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+    <!-- jquery.js -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+    <!-- 使用axios.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+
+    <!-- Adding Mode & Language Type js -->
+    <script>
+        (function () {
+            function setCookie(cname, cvalue, exdays) {
+                var d = new Date();
+                var exdays = exdays ? exdays : 7; // 預設 7 天
+                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+                var expires = 'expires=' + d.toGMTString();
+                var path = 'path=/';
+                document.cookie = cname + '=' + cvalue + '; ' + expires + '; ' + path;
+            }
+
+            function getCookie(cname) {
+                var name = cname + '=';
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i].trim();
+                    if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+                }
+                return '';
+            }
+
+            function set_mode(mode_type) {
+                setCookie('mode_type', mode_type, 30)
+                $(document.body).removeClass().addClass(mode_type)
+                if (mode_type == 'dark') {
+                    $('#mode_type_id span').text("{{ _('淺色模式')}}")
+                } else {
+                    $('#mode_type_id span').text("{{ _('深色模式')}}")
+                }
+            }
+
+            var lang_type = '{{g.lang_code}}';
+            var setting_type = function () {
+                let mode_type = getCookie('mode_type');
+
+                $(document.body).removeClass().addClass(mode_type)
+                $(document).ready(function () {
+                    if (mode_type == 'light') {
+                        set_mode('light')
+                    } else {
+                        set_mode('dark')
+                    }
+                    if (lang_type == 'zh') {
+                        $('#lang_type_id span').text('English')
+                    } else {
+                        $('#lang_type_id span').text('Chinese')
+                    }
+                })
+            }();
+
+            $('body').on('click', '#mode_type_id', function () {
+                let mode_type = getCookie('mode_type');
+                if (mode_type == 'light') {
+                    set_mode('dark')
+                } else {
+                    set_mode('light')
+                }
+            })
+
+            $('body').on('click', '#lang_type_id', function () {
+                if (lang_type == 'zh') {
+                    window.location.href = '/en';
+                } else {
+                    window.location.href = '/zh';
+                }
+            })
+        })()
+    </script>
+
+
+    {% include 'shared/category/header.html'%}
+
+    {% block body %}
+    {% endblock %}
+
+    {% include 'shared/category/footer.html'%}
+
+    <!-- bootstrap.js -->
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.5.0/js/bootstrap4-toggle.min.js"></script>
+
+    <script>
+        var link = document.createElement('meta');
+        link.setAttribute('property', 'og:url');
+        link.content = document.location;
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+</body>
+
+</html>

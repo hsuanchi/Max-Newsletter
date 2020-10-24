@@ -1,0 +1,84 @@
+* {
+    box-sizing: border-box;
+    /*
+    border: 1px solid black;
+    */
+}
+
+h1 {
+    font-family: Montserrat, sans-serif;
+    font-size: 3.2rem;
+    margin-bottom: 0.4375rem;
+}
+
+h2 {
+    font-family: Montserrat, sans-serif;
+    font-size: 1.4rem;
+    margin-bottom: 0.4375rem;
+    text-decoration: underline;
+}
+
+h3 {
+    font-family: Montserrat, sans-serif;
+    font-size: 1.2rem;
+    margin-bottom: 0.4375rem;
+}
+
+p {
+    font-size: 1.0rem;
+    margin-bottom: 0.4375rem;
+}
+
+/* 深色模式 */
+.dark {
+    background: #282c35;
+}
+
+.dark p,
+.dark small,
+.dark li {
+    color: #6c757d;
+    /* color: #dcdcdc; */
+}
+
+.dark #subscribe_email_area p {
+    color: #dcdcdc;
+}
+
+.dark h1,
+.dark h2:not(#swal2-title),
+.dark h3,
+.dark .article {
+    color: #f6f6e9;
+}
+
+.dark #tracking_info_area,
+.dark footer {
+    background-color: #2c313e;
+}
+
+/* 淺色模式 */
+body {
+    background: white;
+}
+
+body p,
+body small,
+body li {
+    color: black;
+}
+
+body h1,
+body h2,
+body h3 {
+    color: #13334c;
+}
+
+body .article {
+    color: #005792;
+}
+
+body #tracking_info_area,
+footer {
+    background-color: #f8f9fa;
+}

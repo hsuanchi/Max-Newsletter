@@ -1,0 +1,50 @@
+<!-- 導航列 區塊 -->
+<nav class="navbar sticky-top navbar-transparent navbar-expand-lg">
+    <div class="mt-2 my-2 my-lg-0 ml-auto">
+        <button class="badge badge-sm badge-light mr-1" id="lang_type_id" type="button"><i class="material-icons"
+                style="font-size: 12px">g_translate</i> <span></span></button>
+        <button class="badge badge-sm badge-light mr-1" id="mode_type_id" type="button"><i class="material-icons"
+                style="font-size: 12px">brightness_medium</i> <span></span></button>
+    </div>
+</nav>
+<!-- header 區塊 -->
+<header>
+    <div class="container">
+        <div class="col-12 pb-5 pt-3">
+            <div class='row'>
+                <div class="col-sm-3 col-md-4 col-lg-5 d-none d-sm-block">
+                    <div style="float:right">
+                        <a href="/{{g.lang_code}}/">
+                            <img src="{{ url_for('static', filename='img/max.png') }}"
+                                style="margin-bottom:0;width:4.2rem;height:4.2rem;border-radius:50%;">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-none d-sm-block">
+                    <h1>
+                        <a href='/{{g.lang_code}}/' style="box-shadow:none;text-decoration:none;color:var(--textTitle)">
+                            {{ _('Max 行銷誌')}}
+                        </a>
+                    </h1>
+                    <small>{{ _('行銷、數據分析、與 Python')}}</small>
+                </div>
+            </div>
+
+            <div class="col-12 d-sm-none">
+                <div class='row'>
+                    <div class="col-12" style="text-align:center;">
+                        <h1 style="font-family:Montserrat, sans-serif;font-size:2.25rem;">
+                            <a href='/{{g.lang_code}}/'
+                                style="box-shadow:none;text-decoration:none;color:var(--textTitle)">
+                                {{ _('Max 行銷誌')}}
+                            </a>
+                        </h1>
+                    </div>
+                    <div class="col-12" style="text-align:center;">
+                        <small>{{ _('行銷、數據分析、與 Python')}}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

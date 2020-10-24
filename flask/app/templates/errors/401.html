@@ -1,0 +1,22 @@
+{% extends 'shared/category/layout.html'%}
+{% block head %}
+{% endblock%}
+
+{% block body %}
+<section>
+    <div class="container my-4 py-4 pb-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="swal2-icon swal2-error swal2-animate-error-icon" style="display: flex;"><span
+                        class="swal2-x-mark"><span class="swal2-x-mark-line-left"></span><span
+                            class="swal2-x-mark-line-right"></span></span>
+                </div>
+                <h2 class="swal2-title">Unauthorized 401</h2>
+                <p class="swal2-content">You're not allowed to do this. Please contact the administrator</p>
+                <p class="swal2-content"><a href="/" style="color: #282c35;">返回首頁</a></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock%}

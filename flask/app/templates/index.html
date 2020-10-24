@@ -1,0 +1,251 @@
+{% extends 'shared/category/layout.html'%}
+{% block head %}
+{% endblock%}
+{% block body %}
+
+<!-- 電子報 區塊 -->
+<section id='subscribe_email_area'>
+    <div class='container'>
+        <div class='col-12'>
+            <div class='row justify-content-center no-gutters  pb-5'>
+                <div class='col-sm-12 col-md-9' style='text-align:center;'>
+                    <p>
+                        {{ _('電子報每週四寄出 🚀')}}<br>
+                        {{ _('掌握 7 天內行銷大小事 🦖')}}<br>
+                        {{ _('(取消訂閱於信尾)')}}<br>
+                    </p>
+                </div>
+            </div>
+            <div class='row justify-content-center  pb-5'>
+                <div class='col-12 col-sm-12 col-md-10 col-lg-8 col-xl-8'>
+                    <form onsubmit='subscribe(event)'>
+                        <div class='form-group row no-gutters justify-content-center'>
+                            <div class='col-8 col-md-10'>
+                                <input type='email' id='email' name='email' class='form-control form-control'
+                                    placeholder='max@email.com' required>
+                            </div>
+                            <div>
+                                <button type='submit' id='send_email' class='btn btn-dark btn'>{{ _('訂閱')}}<span
+                                        id='str'></span></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class='col-sm-12 col-md-9' style='text-align:center'>
+                    <p>
+                        {{ _('(目前已經有')}} <span id='subscribe_count'></span>{{ _(' 位用戶訂閱)')}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 追蹤資訊 區塊 -->
+<section id='tracking_info_area' class='pt-4 my-md-4 pt-md-5'>
+    <div class='container'>
+        <div class='col-12'>
+            <div class='row justify-content-center py-4 my-3 mb-5' style='text-align:center;'>
+                <h2 class='col-12 pb-3 mb-3'>
+                    {{ _('追蹤資訊')}}</h2>
+                <p> {{ _('程式每日自動化追蹤更新訊息')}}</p>
+            </div>
+            <div id='article_list' class='row justify-content-center' style='text-align:center;'>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 電子報內容 區塊 -->
+<section id='newsletter_area' class='pt-4'>
+    <div class='container'>
+        <div class='col-12'>
+            <div class='row justify-content-center' style='text-align:center;'>
+                <h2 class='col-12 py-4 my-3'>{{ _('電子報內容')}}
+                </h2>
+            </div>
+        </div>
+        <article id='article_data' class='pb-3'>
+        </article>
+    </div>
+</section>
+
+<!-- 訂閱 Email js -->
+<script>
+    function subscribe(event) {
+        const data = {
+            email: document.getElementById('email').value
+        }
+        event.preventDefault()
+
+        $('#send_email').attr('disabled', true);
+        window.setTimeout(setDisabled, 30000);
+        setstr(30);
+
+        axios.post('/' + '{{g.lang_code}}' + '/email/subscribe', data, {
+                headers: {
+                    'x-csrf-token': '{{ csrf_token() }}'
+                }
+            })
+            .then(response => {
+                if (response.data.message == 'already') {
+                    document.getElementById('email').value = ''
+                    Swal.fire({
+                        title: "{{ _('訂閱通知')}}",
+                        text: "{{ _('此 Email 已經註冊')}}",
+                        type: 'error'
+                    });
+                } else {
+                    document.getElementById('email').value = ''
+                    Swal.fire({
+                        title: "{{ _('訂閱通知')}}",
+                        text: "{{ _('確認信即將於一分鐘內送出，請至信箱確認')}}",
+                        type: 'success'
+                    });
+                }
+            })
+            .catch(error => {
+                console.log(error)
+                Swal.fire({
+                    title: "{{ _('請聯繫管理員')}}",
+                    text: error.message,
+                    type: 'error'
+                });
+            })
+    }
+
+    function setDisabled() {
+        document.getElementById('send_email').disabled = false;
+    }
+
+    function setstr(s) {
+        document.getElementById('str').innerHTML = s;
+        s -= 1;
+        if (s >= 0) {
+            setTimeout(setstr, 1000, s);
+        } else {
+            document.getElementById('str').innerHTML = '';
+        }
+    }
+</script>
+
+<!-- 追蹤資訊 區塊 js -->
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: '/{{g.lang_code}}/api/get_article_category_list',
+            success: function (data) {
+                var track_info_html = render_trackinfo_html(data)
+                $('#article_list').append(track_info_html)
+            }
+        });
+    });
+
+    function render_trackinfo_html(data) {
+        var html = ''
+        for (var i = 0; i < data.length; i++) {
+            html += create_trackinfo_category_html(data[i])
+            for (var j = 0; j < data[i]['wid'].length; j++) {
+                html += create_trackinfo_items_html(data[i]['wid'][j])
+            }
+            html += `</ul></div>`
+        }
+        return html
+    }
+
+    function create_trackinfo_category_html(data) {
+        if (data['wid'] != '') {
+            return `<div class=' col-6 col-md-4 mt-3 mb-3 justify-content-center'> 
+            <h3> ${data['tag']}</h3> 
+            <ul class = 'list-unstyled text-small'>`
+        } else {
+            return ''
+        }
+    }
+
+    function create_trackinfo_items_html(item) {
+        if (item['status'] == 'Y') {
+            return `<li><a class='text-muted' target='_blank' href='${item['website_url']}'>${item['website_name']}</a></li>`
+        } else {
+            return ''
+        }
+    }
+</script>
+
+<!-- 電子報內容 區塊 js -->
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: '/{{g.lang_code}}/api/get_article',
+            success: function (data) {
+                var track_info_html = render_article_html(data)
+                $('#article_data').append(track_info_html)
+            }
+        });
+    });
+
+    function render_article_html(data) {
+        var html = ''
+        for (var i = 0; i < data.length; i++) {
+            html += create_article_category_html(data[i])
+            for (var j = 0; j < data[i]['wid'].length; j++) {
+                html += create_article_items_html(data[i]['wid'][j])
+            }
+        }
+        return html
+    }
+
+    function create_article_category_html(data) {
+        return `
+                <div class='row justify-content-center py-4 my-3' style='text-align:center;'>
+                    <h3 class='col-12'>
+                        Topic : ${data['tag']}</h3>
+                </div>
+            `
+    }
+
+    function create_article_items_html(item) {
+        html = ''
+        for (var i = 0; i < item['crawler_data'].length; i++) {
+            var language = 'ch'
+            if ('{{g.lang_code}}' == 'en') {
+                language = 'en'
+            }
+            html += `
+                <div class='row mb-3 pb-4 justify-content-center'>
+                    <div class='col-sm-12 col-md-8'>
+                        <div class='article list'>
+                            <h5 class='badge badge-pill badge-danger'>${item['website_name']}</h5>
+                            <h5 class='badge badge-pill badge-info'> ${item['crawler_data'][i]['created_at']} </h5>
+                            <h3>
+                                <a class='article' target='_blank' href='${item['crawler_data'][i]['article_link']}'>
+                                    ${item['crawler_data'][i]['article_name_'+language]} </a>
+                            </h3>
+                            <p>${item['crawler_data'][i]['article_description_'+language]}</p>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+                `
+        }
+        return html
+    }
+</script>
+
+<!-- 電子報訂閱人數 區塊 js -->
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: '/{{g.lang_code}}/api/get_subscribes_number',
+            success: function (data) {
+                $('#subscribe_count').append(data)
+            }
+        });
+    });
+</script>
+
+
+{% endblock%}

@@ -6,6 +6,16 @@ __pycache__/
 # C extensions
 *.so
 
+# Customs
+*.rdb
+*.flaskenv
+*.key
+*.csr
+*.db
+migrations
+gcp_key.json
+
+
 # Distribution / packaging
 .Python
 build/
