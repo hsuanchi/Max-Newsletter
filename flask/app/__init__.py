@@ -42,6 +42,10 @@ def create_app(config_name):
     register_errorhandlers(app)
     register_i18n(app)
 
+    @app.route('/')
+    def index_redirect():
+        return redirect(url_for('index.article', lang_code='zh'))
+
     return app
 
 

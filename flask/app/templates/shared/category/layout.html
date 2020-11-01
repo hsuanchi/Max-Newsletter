@@ -16,7 +16,6 @@
     <meta property="og:description" content="{{ _('電子報訂閱，每週四，掌握行銷大小事')}}" />
     <meta property="og:locale" content="{{ _('zh_TW')}}" />
 
-    <link rel="canonical" href="https://article.maxlist.xyz/" />
     <link rel="alternate" hreflang="zh-TW" href="https://article.maxlist.xyz/zh/" />
     <link rel="alternate" hreflang="en-US" href="https://article.maxlist.xyz/en/" />
     <link rel="alternate" hreflang="x-default" href="https://article.maxlist.xyz/en/" />
@@ -162,6 +161,12 @@
         var link = document.createElement('meta');
         link.setAttribute('property', 'og:url');
         link.content = document.location;
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <script>
+        var link = document.createElement('link');
+        link.setAttribute('rel', 'canonical');
+        link.href = document.location;
         document.getElementsByTagName('head')[0].appendChild(link);
     </script>
 
