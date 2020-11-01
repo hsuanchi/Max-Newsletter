@@ -63,7 +63,6 @@ def register_blueprints(app):
     from .views.rss import category
     from .views.index import index
     from .views.email import email
-    app.register_blueprint(index)
     app.register_blueprint(category, url_prefix='/category')
     app.register_blueprint(index, url_prefix='/<any(zh, en):lang_code>')
     app.register_blueprint(email, url_prefix='/<any(zh, en):lang_code>/email')
