@@ -1,6 +1,7 @@
 
 # Use the Python3.7.2 image
 FROM python:3.7.2-stretch
+ENV FLASK_ENV default
 
 # Set the working directory to /app
 WORKDIR /app
