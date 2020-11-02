@@ -1,0 +1,11 @@
+export FLASK_APP=main.py
+
+export FLASK_ENV=development
+
+export JWT_SECRET_KEY='A JWT Key Assigned by You'
+export SECRET_KEY='A Secret Key Assigned by You'
+
+export db='sqlite:////tmp/test.db'
+export email_password='your email server password'
+export email_username='your email username'
+export GOOGLE_APPLICATION_CREDENTIALS='The gcp credential for db if hosted'

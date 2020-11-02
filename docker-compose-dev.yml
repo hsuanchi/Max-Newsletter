@@ -1,0 +1,59 @@
+version: "3.7"
+
+services:
+
+  flask:
+    build: ./flask
+    container_name: flask
+    # restart: always
+    environment:
+      - APP_NAME=FlaskApp
+    expose:
+      - 8080
+    depends_on:
+      - redis
+    volumes:
+      - ./flask:/app
+
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    # restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - flask
+
+  redis:
+    image: "redis:alpine"
+    container_name: redis_article
+    expose: 
+      - 6379
+
+  celery_worker:
+    build: ./flask
+    container_name: celery_worker
+    environment:    
+      - CELERY_BROKER_URL=redis://redis:6379/1
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on: 
+      - redis
+    command: "celery worker -A celery_worker.celery -l INFO"
+
+  celery_beat:
+    build: ./flask
+    container_name: celery_beat
+    depends_on: 
+      - redis
+    command: "celery -A celery_worker.celery beat -l INFO"
+
+  celery_flower:
+    build: ./flask
+    container_name: celery_flower
+    depends_on: 
+      - redis
+    command: "celery flower worker -A celery_worker.celery"
+    ports:
+      - "5555:5555"
+
