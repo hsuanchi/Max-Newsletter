@@ -99,4 +99,4 @@ Besides, you may want to clean `flask/migrations/` if you want to re-start from 
 
 ##### Dive Into the Code
 
-The entry point of the whole flask application is `main.py` when launching and `index.py` for url root. No matter which development tool or IDE is, you may want to put your breakpoint here. Remember to refresh the browser page to trigger the process to get into `index.py`.
+The entry point of the whole flask application is `flask/main.py` when launching and `flask/app/__init__.py` for url root. No matter which development tool or IDE is, you may want to put your breakpoint here. Remember to refresh the browser page to trigger the process to get into `flask/app/__init__.py`.

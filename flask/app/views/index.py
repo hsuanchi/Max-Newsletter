@@ -53,4 +53,4 @@ def get_article():
 @cache.cached(timeout=60 * 3)
 def get_subscribes_number():
     querys = db.session.query(EmailModel).count()
-    return str(querys + 100), 200
+    return str(querys), 200
