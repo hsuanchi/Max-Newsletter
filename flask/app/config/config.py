@@ -101,7 +101,7 @@ class TestingConfig(BaseConfig):
 
     # Flask-sqlalchemy
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.join(basedir, "test.db")
+    SQLALCHEMY_DATABASE_URI = "sqlite:////tmp/test.db"
 
     # 關閉 CSRF
     WTF_CSRF_ENABLED = False

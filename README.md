@@ -94,6 +94,8 @@ Clean the docker containers after completing development
 docker-compose stop ; docker-compose rm -f
 ```
 
+Besides, you may want to clean `flask/migrations/` if you want to re-start from scratch and an empty database for development next time.
+
 
 ##### Dive Into the Code
 

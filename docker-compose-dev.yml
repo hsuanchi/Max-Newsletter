@@ -1,19 +1,24 @@
 version: "3.7"
 
 services:
-
   flask:
-    build: ./flask
+    build:
+      context: ./flask
+      dockerfile: ../Dockerfile-dev
     container_name: flask
-    # restart: always
     environment:
       - APP_NAME=FlaskApp
+      - FLASK_APP=main.py
+      - FLASK_ENV=testing
+      - SECRET_KEY='SOME RANDOM FOR DEVELOPMENT'
     expose:
       - 8080
     depends_on:
       - redis
     volumes:
       - ./flask:/app
+    entrypoint: /docker-entrypoint.sh
+    command: uwsgi app.ini
 
   nginx:
     build: ./nginx
