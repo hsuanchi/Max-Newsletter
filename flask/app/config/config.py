@@ -106,15 +106,18 @@ class TestingConfig(BaseConfig):
     # 關閉 CSRF
     WTF_CSRF_ENABLED = False
 
-    # Cache
-    CACHE_TYPE = 'null'
+    # For testing and/or development only
+    CELERY_BROKER_URL = 'redis://redis:6379/1'
+    CELERY_RESULT_BACKEND = 'redis://redis:6379/2'
+    # default debugging port of celery 4.4.7 is 6900 according to official
+    # doc, however the port differs very often and CELERY_RDB_PORT does not
+    # take effect
+    #
+    # in my case it is usally 6906, and then 6907
+    #CELERY_RDB_PORT = 6900
 
     # Other
     HOST_NAME = 'http://127.0.0.1:5000'
-
-    # PRESERVE_CONTEXT_ON_EXCEPTION = False
-    CELERY_BROKER_URL = 'redis://localhost:6379/0'
-    CELERY_RESULT_BACKEND = 'redis://localhost:6379/1'
 
 
 config = {
