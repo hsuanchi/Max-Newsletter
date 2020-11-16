@@ -88,19 +88,18 @@
                 }
             })
             .then(response => {
-                if (response.data.message == 'already') {
-                    document.getElementById('email').value = ''
-                    Swal.fire({
-                        title: "{{ _('訂閱通知')}}",
-                        text: "{{ _('此 Email 已經註冊')}}",
-                        type: 'error'
-                    });
-                } else {
+                if (response.data.message == 'send') {
                     document.getElementById('email').value = ''
                     Swal.fire({
                         title: "{{ _('訂閱通知')}}",
                         text: "{{ _('確認信即將於一分鐘內送出，請至信箱確認')}}",
                         type: 'success'
+                    });
+                } else if (response.data.message == 'already') {
+                    Swal.fire({
+                        title: "{{ _('訂閱通知')}}",
+                        text: "{{ _('此 Email 已經註冊')}}",
+                        type: 'error'
                     });
                 }
             })

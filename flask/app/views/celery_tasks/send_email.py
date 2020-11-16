@@ -57,7 +57,7 @@ def send_mail(send_subject: str, send_from: str, send_to: list,
                 print(user + "成功傳送")
 
         except Exception as e:
-            print("Error message: ", e)
+            print("Error in sending emails: ", e)
 
 
 def send_schedule_mail(send_html_path, user, *args, **kwargs):
