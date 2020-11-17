@@ -1,7 +1,5 @@
 #!/bin/sh
-flask db init
-flask db migrate
-flask db upgrade
+flask deploy
 
 # refer to docker best practice:
 # https://docs.docker.com/develop/develop-images/dockerfile_best-practices/

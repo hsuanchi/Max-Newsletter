@@ -37,9 +37,7 @@ class Check_api_article(SettingBase):
     def test_subscribes_number(self):
         response = self.client.get(
             url_for('index.get_subscribes_number', lang_code='zh'))
-
         self.assertEqual(response.status_code, 200)
-        self.assertGreater(len(response.data), 2)
 
 
 if __name__ == '__main__':

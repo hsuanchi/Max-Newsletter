@@ -21,7 +21,6 @@ def make_shell_context():
 
 @app.cli.command()
 def deploy():
-    migrate()
     upgrade()
 
 
