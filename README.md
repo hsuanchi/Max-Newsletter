@@ -23,6 +23,7 @@ Flask Extension:
 * Flask-Babel
 
 Crawler:
+* Requests
 * Beautifulsoup
 * Feedparser
 * Cloudscraper
@@ -43,12 +44,10 @@ FrontEnd:
 * Bootstrap 4
 * jQuery
 
-### 3. 貢獻
-PRs are welcome!
 
-#### Setup Development Environment
-##### Prerequisite Setup
-###### Customize Your Own Flask Environment
+### 3. Setup Development Environment
+#### Prerequisite Setup
+##### Customize Your Own Flask Environment
 
 You may create your own `flask/.flaskenv` to customize your own flask environment for development. For example, see `flaskenv.sample`:
 
@@ -69,7 +68,7 @@ export GOOGLE_APPLICATION_CREDENTIALS='the gcp credentials'
 Copy an edited `flaskenv.sample` to `flask/.flaskenv`.
 
 
-###### Create SSL Key and Certificate for NGINX
+##### Create SSL Key and Certificate for NGINX
 
 If your development environment also manipulates a container of nginx server, you need the SSL key and certificate. Create them by the following commands:
 
@@ -79,7 +78,7 @@ $ openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout ssl.key -out ssl.
 ```
 
 
-##### Launch Docker Container
+#### Launch Docker Container
 
 Now you are ready to build a development environment quickly by the following commands:
 
@@ -97,6 +96,22 @@ docker-compose stop ; docker-compose rm -f
 Besides, you may want to clean `flask/migrations/` if you want to re-start from scratch and an empty database for development next time.
 
 
-##### Dive Into the Code
+#### Dive Into the Code
 
 The entry point of the whole flask application is `flask/main.py` when launching and `flask/app/__init__.py` for url root. No matter which development tool or IDE is, you may want to put your breakpoint here. Remember to refresh the browser page to trigger the process to get into `flask/app/__init__.py`.
+
+### 4. Test
+
+Run the following command:
+```
+$ flask test
+```
+
+To run tests with coverage report:
+```
+$ bash test.sh
+```
+
+
+### 5. Contributing
+PRs are welcome!
