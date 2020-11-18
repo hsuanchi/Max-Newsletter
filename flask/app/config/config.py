@@ -24,24 +24,7 @@ class BaseConfig:
 
     # Celery
     CELERY_TIMEZONE = 'Asia/Taipei'
-    CELERYBEAT_SCHEDULE = {
-        'send_week_mail_task': {
-            'task': 'send_week_mail_task',
-            "schedule": crontab(minute='0', hour='16', day_of_week='thu')
-        },
-        'send_admin_mail_task': {
-            'task': 'send_admin_mail_task',
-            "schedule": crontab(minute='0', hour='9')
-        },
-        'crawler_all_everyday': {
-            'task': 'crawler_all_everyday',
-            "schedule": crontab(minute=15, hour='7')
-        },
-        'clean_data_everyday': {
-            'task': 'clean_data_everyday',
-            "schedule": crontab(minute=15, hour='8')
-        }
-    }
+
 
 
 class DevelopmentConfig(BaseConfig):
@@ -91,6 +74,26 @@ class ProductionConfig(BaseConfig):
     CACHE_DEFAULT_TIMEOUT = 300
     CELERY_BROKER_URL = 'redis://redis:6379/1'
     CELERY_RESULT_BACKEND = 'redis://redis:6379/2'
+    
+    # Celery bet
+    CELERYBEAT_SCHEDULE = {
+        'crawler_all_everyday': {
+            'task': 'crawler_all_everyday',
+            "schedule": crontab(minute=15, hour=7)
+        },
+        'clean_data_everyday': {
+            'task': 'clean_data_everyday',
+            "schedule": crontab(minute=15, hour=8)
+        },
+        'send_admin_mail_task': {
+            'task': 'send_admin_mail_task',
+            "schedule": crontab(minute=0, hour=9)
+        },
+        'send_week_mail_task': {
+            'task': 'send_week_mail_task',
+            "schedule": crontab(minute=0, hour=16, day_of_week='thu')
+        }
+    }
 
     # Other
     HOST_NAME = 'https://article.maxlist.xyz'
