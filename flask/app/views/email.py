@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request, session, redirect, url_for, Blueprint, make_response, current_app, g
+from flask import Flask, render_template, jsonify, request, session, redirect, url_for, Blueprint, make_response, current_app, g, current_app
 from marshmallow import ValidationError, EXCLUDE
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, jwt_optional, get_jwt_claims
 from sqlalchemy.orm import contains_eager
@@ -42,9 +42,13 @@ def subscribe():
                 lang = g.get('lang_code')
                 send_check_mail.delay(data_valide['email'], lang)
                 return {'message': 'send'}, 200
+
         except ValidationError as error:
+            current_app.logger.error(error.messages)
             return {'errors': error.messages}, 400
+
         except Exception as e:
+            current_app.logger.error(abort_msg(e))
             return {'errors': abort_msg(e)}, 422
 
 
