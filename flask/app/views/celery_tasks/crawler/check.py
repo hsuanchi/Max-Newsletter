@@ -1,10 +1,8 @@
 # Import 爬蟲相關
-import requests, cloudscraper
+import requests
 from bs4 import BeautifulSoup
-import feedparser
 
 # Import 資料處理相關
-import pandas as pd
 from datetime import datetime
 
 
@@ -41,14 +39,6 @@ class Craw:
 
         except Exception as e:
             print(e)
-            df = pd.DataFrame(
-                {
-                    "name": "test",
-                    "url": [url],
-                    "status": ["error"],
-                    "updatetime": [self.NOW],
-                }
-            )
 
         return self.dict_crawl
 

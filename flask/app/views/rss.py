@@ -1,17 +1,10 @@
 from flask import (
-    Flask,
     render_template,
-    jsonify,
-    request,
-    session,
-    redirect,
-    url_for,
     Blueprint,
     make_response,
 )
-from .. import db, cache
+from .. import db
 from ..model.article import Website_crawler_structure, Crawler_clean_data
-from sqlalchemy.orm import contains_eager
 import datetime
 
 category = Blueprint("category", __name__)

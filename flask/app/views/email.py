@@ -1,29 +1,16 @@
 from flask import (
-    Flask,
     render_template,
-    jsonify,
     request,
-    session,
-    redirect,
-    url_for,
     Blueprint,
-    make_response,
-    current_app,
     g,
     current_app,
 )
 from marshmallow import ValidationError, EXCLUDE
 from flask_jwt_extended import (
-    create_access_token,
     get_jwt_identity,
     jwt_required,
     jwt_optional,
-    get_jwt_claims,
 )
-from sqlalchemy.orm import contains_eager
-import datetime
-
-from .. import db, celery
 from ..model.email import (
     EmailModel,
     EmailSchema,
@@ -31,9 +18,6 @@ from ..model.email import (
     Email_unsubscribe_log,
 )
 from ..model.article import (
-    Website_tag,
-    Website_crawler_structure,
-    Crawler_clean_data,
     Article_tag_schema,
 )
 from .abort_msg import abort_msg

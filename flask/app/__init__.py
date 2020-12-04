@@ -1,17 +1,5 @@
 # 引用 flask 內建函式
-from flask import (
-    Flask,
-    g,
-    render_template,
-    jsonify,
-    request,
-    session,
-    redirect,
-    make_response,
-    url_for,
-    abort,
-    current_app,
-)
+from flask import Flask, g, render_template, request, redirect, url_for
 
 # 引用套件
 from flask_jwt_extended import JWTManager
@@ -22,13 +10,10 @@ from flask_babel import Babel
 from celery import Celery
 
 # 引用其他相關模組
-import time
-import datetime
-import random
 import requests
 import os
 
-from .config.config import config, BaseConfig
+from .config.config import config
 
 celery_redis = config[os.environ.get("FLASK_ENV")].CELERY_BROKER_URL
 celery = Celery(__name__, broker=celery_redis, backend=celery_redis)

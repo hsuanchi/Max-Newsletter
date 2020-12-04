@@ -3,26 +3,16 @@ from ... import db, cache
 from ...model.article import (
     Website_crawler_structure,
     Website_tag,
-    Website_tag_schema,
-    Article_tag_schema,
     Crawler_clean_data,
 )
 from sqlalchemy.orm import contains_eager
 
-from flask import current_app, render_template, url_for
-from flask_jwt_extended import (
-    create_access_token,
-    get_jwt_identity,
-    jwt_required,
-    jwt_optional,
-    get_jwt_claims,
-)
+from flask import current_app, render_template
+from flask_jwt_extended import create_access_token
 
 # SMTP
 import os
-import sys
 import smtplib
-from email import encoders
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 

@@ -5,9 +5,6 @@ from ... import db, celery
 from .send_email import send_mail
 from .crawler import main
 from .clean_table import clean_crawler_data
-from celery.exceptions import Retry
-
-import random
 
 
 # Daily - Crawler data

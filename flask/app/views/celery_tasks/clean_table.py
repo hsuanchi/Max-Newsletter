@@ -1,4 +1,3 @@
-from ... import db
 from ...model.article import Crawler_clean_data, Website_crawler_structure
 
 

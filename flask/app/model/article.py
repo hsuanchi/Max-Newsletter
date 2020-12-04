@@ -1,7 +1,6 @@
 from .. import db
 from .mixin.basic import BasicModelMixin
 
-from datetime import datetime
 import pandas as pd
 from marshmallow import Schema, fields
 

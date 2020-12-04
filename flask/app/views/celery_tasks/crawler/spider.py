@@ -1,12 +1,12 @@
 # Import 爬蟲相關
-import requests, cloudscraper
+import requests
+import cloudscraper
 from bs4 import BeautifulSoup
 import feedparser
 
 # Import 資料處理相關
 import pandas as pd
 from datetime import datetime
-import re
 
 
 class Craw:
