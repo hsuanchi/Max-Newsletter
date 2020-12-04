@@ -19,11 +19,12 @@ class SettingBase(TestCase):
 class Check_rss(SettingBase):
     def test_rss(self):
         response = self.client.get(
-            url_for('category.get_rss_by_tid', get_tid='1', lang_code='zh'))
+            url_for("category.get_rss_by_tid", get_tid="1", lang_code="zh")
+        )
 
         self.assertEqual(response.status_code, 200)
         self.assertGreater(len(response.data), 2)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

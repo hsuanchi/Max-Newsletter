@@ -4,7 +4,7 @@ from marshmallow import Schema, fields
 
 
 class EmailModel(db.Model):
-    __tablename__ = 'email_subscribe'
+    __tablename__ = "email_subscribe"
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(55))
     insert_time = db.Column(db.DateTime, default=datetime.now)
@@ -12,12 +12,12 @@ class EmailModel(db.Model):
 
     @classmethod
     def get_by_email(cls, email):
-        filters = {'email': email, 'status': True}
+        filters = {"email": email, "status": True}
         return cls.query.filter_by(**filters).first()
 
     @classmethod
     def subscribe(cls, email):
-        filters = {'email': email}
+        filters = {"email": email}
         check_exit_email = cls.query.filter_by(**filters).first()
         if check_exit_email:
             check_exit_email.status = True
@@ -29,14 +29,14 @@ class EmailModel(db.Model):
 
     @classmethod
     def unsubscribe(cls, email):
-        filters = {'email': email}
+        filters = {"email": email}
         get_exit_email = cls.query.filter_by(**filters).first()
         get_exit_email.status = False
         db.session.commit()
 
 
 class Email_subscribe_log(db.Model):
-    __tablename__ = 'email_subscribe_log'
+    __tablename__ = "email_subscribe_log"
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(55))
     insert_time = db.Column(db.DateTime, default=datetime.now)
@@ -49,7 +49,7 @@ class Email_subscribe_log(db.Model):
 
 
 class Email_unsubscribe_log(db.Model):
-    __tablename__ = 'email_unsubscribe_log'
+    __tablename__ = "email_unsubscribe_log"
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(55))
     insert_time = db.Column(db.DateTime, default=datetime.now)

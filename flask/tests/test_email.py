@@ -6,7 +6,12 @@ from flask import url_for
 from flask_testing import TestCase
 
 from app import create_app, db
-from app.views.celery_tasks.tasks import send_check_mail, send_mail_task, send_mail_now_task, send_admin_mail_task
+from app.views.celery_tasks.tasks import (
+    send_check_mail,
+    send_mail_task,
+    send_mail_now_task,
+    send_admin_mail_task,
+)
 
 
 class SettingBase(TestCase):
@@ -20,7 +25,7 @@ class SettingBase(TestCase):
 class Check_email(SettingBase):
     @patch("smtplib.SMTP")
     def test_send_check_mail(self, mock_smtp):
-        send_check_mail('a0025071@gmail.com', lang='zh')
+        send_check_mail("a0025071@gmail.com", lang="zh")
         self.assertTrue(mock_smtp.called)
 
     @patch("smtplib.SMTP")
@@ -30,7 +35,7 @@ class Check_email(SettingBase):
 
     @patch("smtplib.SMTP")
     def test_send_now_mail(self, mock_smtp):
-        send_mail_now_task(email='a0025071@gmail.com')
+        send_mail_now_task(email="a0025071@gmail.com")
         self.assertTrue(mock_smtp.called)
 
     @patch("smtplib.SMTP")
@@ -39,5 +44,5 @@ class Check_email(SettingBase):
         self.assertTrue(mock_smtp.called)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -7,7 +7,7 @@ from marshmallow import Schema, fields
 
 
 class Website_crawler_structure(db.Model, BasicModelMixin):
-    __tablename__ = 'website_crawler_structure'
+    __tablename__ = "website_crawler_structure"
     website_name = db.Column(db.String(255))
     website_url = db.Column(db.String(255))
     crawler_url = db.Column(db.String(255))
@@ -19,28 +19,31 @@ class Website_crawler_structure(db.Model, BasicModelMixin):
     translate = db.Column(db.Integer)
 
     # 多
-    tid = db.Column(db.Integer, db.ForeignKey('website_tag.id'))
+    tid = db.Column(db.Integer, db.ForeignKey("website_tag.id"))
     # 一
-    crawler_data = db.relationship('Crawler_clean_data',
-                                   lazy='select',
-                                   backref=db.backref('crawler_data',
-                                                      lazy='select'))
+    crawler_data = db.relationship(
+        "Crawler_clean_data",
+        lazy="select",
+        backref=db.backref("crawler_data", lazy="select"),
+    )
 
 
 class Website_tag(db.Model, BasicModelMixin):
-    __tablename__ = 'website_tag'
+    __tablename__ = "website_tag"
     tag = db.Column(db.String(50), unique=True)
     sequence = db.Column(db.Integer)
     line_bot_url = db.Column(db.String(255))
 
     # 一
-    wid = db.relationship('Website_crawler_structure',
-                          lazy='select',
-                          backref=db.backref('website', lazy='select'))
+    wid = db.relationship(
+        "Website_crawler_structure",
+        lazy="select",
+        backref=db.backref("website", lazy="select"),
+    )
 
 
 class Crawler_clean_data(db.Model, BasicModelMixin):
-    __tablename__ = 'crawler_clean_data'
+    __tablename__ = "crawler_clean_data"
     article_name_en = db.Column(db.Text())
     article_name_ch = db.Column(db.Text())
     article_description_en = db.Column(db.Text())
@@ -48,11 +51,11 @@ class Crawler_clean_data(db.Model, BasicModelMixin):
     article_link = db.Column(db.Text())
 
     # 多
-    tid = db.Column(db.Integer, db.ForeignKey('website_crawler_structure.id'))
+    tid = db.Column(db.Integer, db.ForeignKey("website_crawler_structure.id"))
 
     @staticmethod
     def get_raw_crawler_data():
-        sql_article = '''
+        sql_article = """
             SELECT
                 *
             FROM (
@@ -76,7 +79,7 @@ class Crawler_clean_data(db.Model, BasicModelMixin):
                 A.count_time = 0
             ORDER BY
                 count_time
-            '''
+            """
 
         return pd.read_sql(sql_article, db.engine)
 
@@ -101,7 +104,7 @@ class Crawler_clean_data_schema(Schema):
     article_description_en = fields.String()
     article_description_ch = fields.String()
     article_link = fields.String()
-    created_at = fields.DateTime(format='%Y-%m-%d')
+    created_at = fields.DateTime(format="%Y-%m-%d")
 
 
 class Article_crawler_schema(Schema):
