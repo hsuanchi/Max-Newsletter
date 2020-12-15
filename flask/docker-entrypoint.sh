@@ -3,7 +3,7 @@ flask deploy
 
 # enable celery worker in the backgroud
 celery worker -A celery_worker.celery -l DEBUG -f /tmp/celery-worker.log &
-celery -A celery_worker.celery beat -l INFO &
+celery -A celery_worker.celery beat -l INFO --pidfile=/tmp/w1.pid &
 celery flower worker -A celery_worker.celery &
 
 # refer to docker best practice:
