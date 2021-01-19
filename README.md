@@ -53,12 +53,9 @@ You may create your own `flask/.flaskenv` to customize your own flask environmen
 
 ```
 export FLASK_APP=main.py
-
 export FLASK_ENV=development
-
 export JWT_SECRET_KEY='THIS JWT Key made by max super secert'
 export SECRET_KEY='THIS IS MAX set to be super secert'
-
 export db='sqlite:////tmp/test.db'
 export email_password='your email server password'
 export email_username='your email username'
@@ -115,3 +112,8 @@ $ bash test.sh
 
 ### 5. Contributing
 PRs are welcome!
+This project exists thanks to all the people who contribute.
+
+<a href="https://github.com/hsuanchi/Max-Newsletter/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=hsuanchi/Max-Newsletter" />
+</a>
