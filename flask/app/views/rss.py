@@ -3,8 +3,8 @@ from flask import (
     Blueprint,
     make_response,
 )
-from .. import db
-from ..model.article import Website_crawler_structure, Crawler_clean_data
+from app import db
+from app.model.article import Website_crawler_structure, Crawler_clean_data
 import datetime
 
 category = Blueprint("category", __name__)

@@ -1,6 +1,6 @@
 # Import Model
 import pandas as pd
-from ..crawler import database, spider
+from app.views.celery_tasks.crawler import database, spider
 
 
 class Crawler:

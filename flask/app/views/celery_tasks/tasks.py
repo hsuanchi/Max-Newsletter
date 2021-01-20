@@ -1,11 +1,10 @@
 from flask import current_app
 from flask_jwt_extended import create_access_token
 
-from ... import db, celery
-from .send_email import send_mail
-from .crawler import main
-from .clean_table import clean_crawler_data
-
+from app import db, celery
+from app.views.celery_tasks.send_email import send_mail
+from app.views.celery_tasks.crawler import main
+from app.views.celery_tasks.clean_table import clean_crawler_data
 
 # Daily - Crawler data
 @celery.task(name="crawler_all_everyday")

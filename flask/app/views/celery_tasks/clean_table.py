@@ -1,4 +1,4 @@
-from ...model.article import Crawler_clean_data, Website_crawler_structure
+from app.model.article import Crawler_clean_data, Website_crawler_structure
 
 
 def clean_crawler_data():

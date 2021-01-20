@@ -11,18 +11,17 @@ from flask_jwt_extended import (
     jwt_required,
     jwt_optional,
 )
-from ..model.email import (
+from app.model.email import (
     EmailModel,
     EmailSchema,
     Email_subscribe_log,
     Email_unsubscribe_log,
 )
-from ..model.article import (
+from app.model.article import (
     Article_tag_schema,
 )
-from .abort_msg import abort_msg
-
-from ..views.celery_tasks.tasks import send_mail_now_task, send_check_mail
+from app.views.abort_msg import abort_msg
+from app.views.celery_tasks.tasks import send_mail_now_task, send_check_mail
 
 email = Blueprint("email", __name__)
 email_schema = EmailSchema()

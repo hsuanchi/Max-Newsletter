@@ -13,7 +13,8 @@ from celery import Celery
 import requests
 import os
 
-from .config.config import config
+from app.config.config import config
+
 
 celery_redis = config[os.environ.get("FLASK_ENV")].CELERY_BROKER_URL
 celery = Celery(__name__, broker=celery_redis, backend=celery_redis)

@@ -1,5 +1,5 @@
-from .. import db
-from .mixin.basic import BasicModelMixin
+from app import db
+from app.model.mixin.basic import BasicModelMixin
 
 import pandas as pd
 from marshmallow import Schema, fields

@@ -1,6 +1,6 @@
 import datetime
-from ... import db, cache
-from ...model.article import (
+from app import db, cache
+from app.model.article import (
     Website_crawler_structure,
     Website_tag,
     Crawler_clean_data,
