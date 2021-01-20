@@ -4,7 +4,7 @@ services:
   flask:
     build:
       context: ./flask
-      dockerfile: ../Dockerfile-dev
+      dockerfile: Dockerfile-dev
     container_name: flask
     environment:
       - APP_NAME=FlaskApp
@@ -34,12 +34,13 @@ services:
     command: uwsgi app.ini
 
   nginx:
-    build: ./nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile-dev
     container_name: nginx
     # restart: always
     ports:
       - "80:80"
-      - "443:443"
     depends_on:
       - flask
 
@@ -48,4 +49,3 @@ services:
     container_name: redis_article
     expose: 
       - 6379
-
